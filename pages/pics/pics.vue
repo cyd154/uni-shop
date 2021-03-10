@@ -14,7 +14,7 @@
 					<h4>{{item.cat_name}}</h4>
 				</view>
 				<view class="flexa">
-				<view class="item-b" v-for="(itema,index) in item.children">
+				<view class="item-b" @click="goclassification(itema.cat_id)" v-for="(itema,index) in item.children">
 					<image :src="itema.cat_icon"></image>
 					<text>{{itema.cat_name}}</text>
 				</view>
@@ -50,6 +50,11 @@
 				this.active = index
 				this.itemList = []
 				this.itemList = this.categoriesList[index].children
+			},
+			goclassification(id) {
+				uni.navigateTo({
+					url:'../classification/classification?id=' +id
+				})
 			}
 		}
 	}

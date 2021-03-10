@@ -39,6 +39,18 @@
 			"style":{
 				"navigationBarTitleText": "商品分类"
 			}
+		},
+		{
+			"path" : "pages/goods-detail/goods-detail",
+			"style":{
+				"navigationBarTitleText": "商品详情"
+			}
+		},
+		{
+			"path" : "pages/classification/classification",
+			"style":{
+				"navigationBarTitleText": "分类列表"
+			}
 		}
 ],
 	"globalStyle": {

@@ -1,6 +1,6 @@
 <template>
 	<view class="goods">
-		<goods-list :goods='goods' />
+		<goods-list @navigator="goGoodsDetail" :goods='goods' />
 		<view class="isOver" v-if="flag">
 			————————到底了————————
 		</view>
@@ -19,7 +19,8 @@
 				goods:[],
 				pagenum:1,
 				flag:false,
-				goodsTotal:0
+				goodsTotal:0,
+				goodsId:0
 			}
 		},
 		methods: {
@@ -27,16 +28,23 @@
 				const res = await this.$http({
 					url:'/goods/search',
 					data:{
-						pagenum: this.pagenum
+						pagenum: this.pagenum,
+						cid: this.goodsId
 					}
 				})
+				// console.log(res)
 				this.goods = [...this.goods,...res.data.message.goods]
 				this.goodsTotal = res.data.message.total
-				// console.log(this.goodsTotal)
-				
+				// console.log(this.goods)
+			},
+			goGoodsDetail(id) {
+				uni.navigateTo({
+					url:'../goods-detail/goods-detail?id='+id
+				})
 			}
 		},
-		onLoad() {
+		onLoad(op) {
+			this.goodsId = op.id
 			this.getgoods()
 		},
 		onReachBottom() {
@@ -46,16 +54,7 @@
 				this.pagenum++
 				this.getgoods()
 			}
-		},
-		onPullDownRefresh() {
-			// console.log('xia')
-			this.pagenum = 1
-			this.goods = []
-			this.flag = false
-			this.getgoods()
-			uni.stopPullDownRefresh()
 		}
-		
 	}
 </script>
 

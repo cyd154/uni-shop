@@ -15,7 +15,7 @@
 		<!-- 推荐商品区域 -->
 		<view class="hot_goods">
 			<view class="tit">推荐商品</view>
-			<goods-list :goods='goods' />  
+			<goods-list @navigator="goGoodsDetail" :goods='goods' />  
 		</view>
 		<view class="isOver" v-if="flag">
 			————————到底了————————
@@ -78,7 +78,7 @@
 				const res = await this.$http({
 					url:'/goods/search',
 					data:{
-						pagenum: this.pagenum,
+						pagenum: this.pagenum
 					}
 				})
 				// console.log(res)
@@ -101,6 +101,12 @@
 				this.flag = false
 				this.getHotGoods()
 				uni.stopPullDownRefresh()
+			},
+			goGoodsDetail(id) {
+				uni.navigateTo({
+					url:'../goods-detail/goods-detail?id='+id
+				})
+				
 			}
 		}
 	}
